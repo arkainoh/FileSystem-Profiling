@@ -1,0 +1,10 @@
+http://sunyzero.tistory.com/161
+
+do_gettimeofday썼는데도 계속
+implicit declaration of function 이라는 에러가 떠서 컴파일이 되지 않았다
+조사 결과 관련 헤더파일을 include 해주지 않았기 때문!
+
+sys/time.h는 4.4에서 제외되어서 그렇다.
+linux/time.h는 있긴 한데 그 안을 뜯어보니 do_gettimeofday라는 함수가 정의되어 있지 않았음
+따라서 CURRENT_TIME 이라는 매크로 상수를 사용하게 되었음. current_kernel_time()이라는 함수를 가리키며, 이 함수는 커널의 현재시간을 nano second단위 까지 알려주는 timespec 구조체를 반환함
+

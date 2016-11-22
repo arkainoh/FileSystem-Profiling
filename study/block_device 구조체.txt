@@ -1,0 +1,35 @@
+454 struct block_device {
+455         dev_t                   bd_dev;  /* not a kdev_t - it's a search key */
+456         int                     bd_openers;
+457         struct inode *          bd_inode;       /* will die */
+458         struct super_block *    bd_super;
+459         struct mutex            bd_mutex;       /* open/close mutex */
+460         void *                  bd_claiming;
+461         void *                  bd_holder;
+462         int                     bd_holders;
+463         bool                    bd_write_holder;
+464 #ifdef CONFIG_SYSFS
+465         struct list_head        bd_holder_disks;
+466 #endif
+467         struct block_device *   bd_contains;
+468         unsigned                bd_block_size;
+469         struct hd_struct *      bd_part;
+470         /* number of times partitions within this device have been opened. */
+471         unsigned                bd_part_count;
+472         int                     bd_invalidated;
+473         struct gendisk *        bd_disk;
+474         struct request_queue *  bd_queue;
+475         struct list_head        bd_list;
+476         /*
+477          * Private data.  You must have bd_claim'ed the block_device
+478          * to use this.  NOTE:  bd_claim allows an owner to claim
+479          * the same device multiple times, the owner must take special
+480          * care to not mess up bd_private for that case.
+481          */
+482         unsigned long           bd_private;
+483 
+484         /* The counter of freeze processes */
+485         int                     bd_fsfreeze_count;
+486         /* Mutex for freeze */
+487         struct mutex            bd_fsfreeze_mutex;
+488 };

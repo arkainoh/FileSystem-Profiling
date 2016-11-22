@@ -1,0 +1,8 @@
+file system type 구조체에
+각 파일 시스템에 대한 정보가 정의되어있다.
+
+vfsmount 에 마운트 포인트에 대한 정보 정의
+
+super_block 구조체의 .s_type은 struct file_system_type을 저장함
+
+dentry 구조체에서 super_block 구조체로 접근 가능!
