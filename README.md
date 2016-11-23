@@ -1,7 +1,10 @@
-﻿# LFS & EXT4 Profiling
+# LFS & EXT4 Profiling
 
-*파일시스템 Nilfs2와 Ext4의 쓰기 동작 시 디스크 섹터에 어떤 순서로 접근하는지를 데이터로 보여주는 시스템을 위한 파일들
+#### Purpose
+To profile Nilfs2 and Ext4 File systems on Linux Kernel 4.4 in order to figure out the difference between two file systems in the sequence of accessing disk block sectors when calling write system call<br>
+For further information, check "Group 18 Report.pdf"
 
+#### File description
 /blk-core.c	원 경로는 $리눅스경로/block/ 이다. write/read 시 bio로 접근하는 함수인 submit_bio를 포함하기 때문에 해당 함수 안에 write 일 때만 접근 sector와 시간, 해당 bio의 block device의 super block의 파일시스템 타입을 버퍼에 기록하는 코드를 추가하였다. 시간값을 받아오기 위해 time.h 헤더 참조를 추가하였다.
 
 /segbuf.c	원 경로는 $리눅스경로/fs/nilfs2/ 이다. Nilfs에서 사용하는 bio 대체 struct인 segment_buffer를 Ext4 파일시스템이 사용하기 위해 submit_bio 함수의 parameter에 segbuf를 넣는 역할이 포함된 파일이다. 따라서 submit_bio 전 해당 bio가 segbuf의 superblock을 가리키게 하는 코드를 추가하였다.
