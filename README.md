@@ -5,9 +5,9 @@ To profile Ext4 and Nilfs2 on Linux Kernel 4.4 in order to figure out the differ
 For further information, check "Group 18 Report.pdf"
 
 #### Result Preview
-EXT4
+- EXT4
 ![Result of EXT4](/ext4.jpg)
-LFS
+- LFS
 ![Result of LFS](/nilfs2.jpg)
 
 #### File description
