@@ -1,8 +1,14 @@
-# LFS & EXT4 Profiling
+# EXT4 & LFS Profiling
 
 #### Purpose
-To profile Nilfs2 and Ext4 File systems on Linux Kernel 4.4 in order to figure out the difference between two file systems in the sequence of accessing disk block sectors when calling write system call<br>
+To profile Ext4 and Nilfs2 on Linux Kernel 4.4 in order to figure out the difference between two file systems in the sequence of accessing disk block sectors when calling write system call<br>
 For further information, check "Group 18 Report.pdf"
+
+#### Result Preview
+EXT4
+![Result of EXT4](/ext4.jpg)
+LFS
+![Result of LFS](/nilfs2.jpg)
 
 #### File description
 /blk-core.c	원 경로는 $리눅스경로/block/ 이다. write/read 시 bio로 접근하는 함수인 submit_bio를 포함하기 때문에 해당 함수 안에 write 일 때만 접근 sector와 시간, 해당 bio의 block device의 super block의 파일시스템 타입을 버퍼에 기록하는 코드를 추가하였다. 시간값을 받아오기 위해 time.h 헤더 참조를 추가하였다.
